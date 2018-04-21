@@ -1,0 +1,122 @@
+apply plugin: 'java'
+	compileJava {
+	sourceCompatibility = '1.8'
+	targetCompatibility = '1.8'
+}
+apply plugin: 'war'
+
+//default webAppDirName in gradle is not "WebContent" but 
+// it is default in eclipse so change it according to eclipse layout
+// it encapsulates all files under webAppDirName
+webAppDirName = 'WebContent'
+
+// build directory of gradle, it is default "build" and
+// we don't need to change it. I changed because I dont want eclipse
+// and gradle build to be mixed. 
+buildDir = 'gradle_build'
+
+// src is not default java source dir in gradle 
+// so change srcDir and resources srcDir 
+//according to eclipse project layout  
+sourceSets {
+  main {
+     java {
+	      srcDir 'src'
+     }
+     resources {
+       srcDir 'src'
+     }
+  } 
+}
+
+//I have just realized that we did not need repositories definiton below
+//But it should be tested again after removing below lines
+repositories {
+    mavenCentral()
+    flatDir { dirs "WebContent/WEB-INF/lib","libs"}
+}
+
+// In eclipse project, we generally add all dependecies under
+//WEB-INF/lib for runtime.
+// I also used libs directory for only compile time,
+// we added two directory below to make gradle build successfully.
+//It is defined as "providedCompile" which says gradle that do not 
+//add these libraries to
+//war file explicitly because it will be available in runtime.
+//btw, we already let gradle add all files to war under WebContent
+dependencies {
+	providedCompile fileTree(dir:'WebContent/WEB-INF/lib', include:'*.jar')
+  	providedCompile fileTree(dir:'libs', include:'*.jar')
+	
+	// https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.0'
+
+	// https://mvnrepository.com/artifact/org.springframework/spring-context
+	compile group: 'org.springframework', name: 'spring-context', version: '5.0.5.RELEASE'
+	// https://mvnrepository.com/artifact/org.springframework/spring-core
+	compile group: 'org.springframework', name: 'spring-core', version: '5.0.5.RELEASE'
+	// https://mvnrepository.com/artifact/org.springframework/spring-beans
+	compile group: 'org.springframework', name: 'spring-beans', version: '5.0.5.RELEASE'
+	// https://mvnrepository.com/artifact/org.springframework/spring-web
+	compile group: 'org.springframework', name: 'spring-web', version: '5.0.5.RELEASE'
+	// https://mvnrepository.com/artifact/org.springframework/spring-webmvc
+	compile group: 'org.springframework', name: 'spring-webmvc', version: '5.0.5.RELEASE'
+	// https://mvnrepository.com/artifact/org.springframework/spring-context-support
+	compile group: 'org.springframework', name: 'spring-context-support', version: '5.0.5.RELEASE'
+	// https://mvnrepository.com/artifact/org.springframework/spring-tx
+	compile group: 'org.springframework', name: 'spring-tx', version: '5.0.5.RELEASE'
+	// https://mvnrepository.com/artifact/org.springframework/spring-jdbc
+	compile group: 'org.springframework', name: 'spring-jdbc', version: '5.0.5.RELEASE'
+	// https://mvnrepository.com/artifact/org.springframework/spring-aop
+	compile group: 'org.springframework', name: 'spring-aop', version: '5.0.5.RELEASE'
+	
+	// https://mvnrepository.com/artifact/org.aspectj/aspectjrt
+	compile group: 'org.aspectj', name: 'aspectjrt', version: '1.9.0'
+	// https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
+	compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.0'
+	
+	// https://mvnrepository.com/artifact/org.jasypt/jasypt
+	compile group: 'org.jasypt', name: 'jasypt', version: '1.9.2'
+	
+	// https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+	compile group: 'com.zaxxer', name: 'HikariCP', version: '3.1.0'
+	// https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+	// https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12
+	compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
+	
+	// https://mvnrepository.com/artifact/org.mybatis/mybatis
+	compile group: 'org.mybatis', name: 'mybatis', version: '3.4.6'
+	// https://mvnrepository.com/artifact/org.mybatis/mybatis-spring
+	compile group: 'org.mybatis', name: 'mybatis-spring', version: '1.3.2'
+	
+	// https://mvnrepository.com/artifact/com.google.code.gson/gson
+	compile group: 'com.google.code.gson', name: 'gson', version: '2.8.2'
+	
+	// https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.5'
+	// https://mvnrepository.com/artifact/commons-io/commons-io
+	compile group: 'commons-io', name: 'commons-io', version: '2.6'
+	// https://mvnrepository.com/artifact/commons-net/commons-net
+	compile group: 'commons-net', name: 'commons-net', version: '3.6'
+	
+	// https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+	compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+	// https://mvnrepository.com/artifact/org.apache.taglibs/taglibs-standard-spec
+	compile group: 'org.apache.taglibs', name: 'taglibs-standard-spec', version: '1.2.5'
+	// https://mvnrepository.com/artifact/org.apache.taglibs/taglibs-standard-impl
+	compile group: 'org.apache.taglibs', name: 'taglibs-standard-impl', version: '1.2.5'
+	
+	// https://mvnrepository.com/artifact/com.google.guava/guava
+	compile group: 'com.google.guava', name: 'guava', version: '24.1-jre'
+	
+	// https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-client
+	compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.27'
+	// https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-server
+	compile group: 'org.glassfish.jersey.core', name: 'jersey-server', version: '2.27'
+	// https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-servlet
+	compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet', version: '2.27'
+	// https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-servlet-core
+	compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet-core', version: '2.27'
+	
+}
