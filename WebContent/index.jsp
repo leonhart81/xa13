@@ -23,7 +23,7 @@
 				<div class="col-md-7 col-sm-12">
 					<div class="card">
 						<div class="card-body">
-
+							<input type="text" class="form-control datetime_picker" value="2018-04-25 21:54">
 						</div>
 					</div>
 				</div>
@@ -31,7 +31,11 @@
 			<div class="row mt-3">
 				<div class="col-md-12 col-sm-12">
 					<div class="card">
-						<div class="card-body"></div>
+						<div class="card-body">
+							<div class="col-md-4 col-sm-12">
+								<input type="text" class="form-control month_picker" value="2018-04">
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

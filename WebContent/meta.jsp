@@ -36,9 +36,20 @@ div.bootstrap-datetimepicker-widget.dropdown-menu {
 <script type="text/javascript">
 $(function() {
 	$("body").bootstrapMaterialDesign();
-	$(".date_picker").datetimepicker({
-		
+
+    $(".datetime_picker").datetimepicker({
+        format: "YYYY-MM-DD HH:mm"
+    });
+	
+    $(".date_picker").datetimepicker({
+		viewMode: "days",
+        format: "YYYY-MM-DD"
 	});
+
+    $(".month_picker").datetimepicker({
+        viewMode: "months",
+        format: "YYYY-MM"
+    });
 });
 </script>
 
